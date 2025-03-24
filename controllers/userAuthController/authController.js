@@ -272,25 +272,17 @@ exports.logoutUser = asyncHandler(async (req, res) => {
 });
 
 exports.deleteUser = asyncHandler(async (req, res) => {
-  try {
-    const { id } = req.params; // URL se user ID lena
+  console.log("Deleting user with ID:", req.params.currentToken);
 
-    if (!id) {
-      return res.status(400).json({ message: "User ID is required" });
-    }
+  const user = await User.findByIdAndDelete(req.params.currentToken);
 
-    // const user = await User.findById(id);
+  console.log("Deleted user:", user);
 
-    // if (!user) {
-    //   return res.status(404).json({ message: "User not found" });
-    // }
-
-    await User.findByIdAndDelete(id);
-
-    res.status(200).json({ message: "User deleted successfully" });
-  } catch (error) {
-    console.error("Error deleting user:", error.message);
-    res.status(500).json({ message: "Failed to delete user. Please try again later." });
+  if (!user) {
+    return res.status(404).json({ message: "User not found" });
   }
+
+  res.status(200).json({ message: "User deleted successfully" });
 });
+
 
