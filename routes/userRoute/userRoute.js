@@ -11,7 +11,7 @@ const {
 router
     .post("/register-login", registerOrLoginUser)
     .post("/verify-otp", verifyOtpForUser)
-    .get("/delete/:currentToken", deleteUser)
+    .get("/delete/:_id", deleteUser)
 
 router
     .post("/logout", logoutUser);

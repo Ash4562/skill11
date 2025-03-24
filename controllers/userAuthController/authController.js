@@ -272,17 +272,16 @@ exports.logoutUser = asyncHandler(async (req, res) => {
 });
 
 exports.deleteUser = asyncHandler(async (req, res) => {
-  console.log("Deleting user with ID:", req.params.currentToken);
-
-  const user = await User.findByIdAndDelete(req.params.currentToken);
-
+  console.log(req.params.id);
+  const user = await User.findByIdAndDelete(req.params._id);
   console.log("Deleted user:", user);
+    const user1 = await User.findById(req.params._id)
+  console.log(user1)
 
-  if (!user) {
-    return res.status(404).json({ message: "User not found" });
+  console.log(user);
+  if (!user) {  
+      return res.status(404).json({ message: "user not found" });
   }
-
-  res.status(200).json({ message: "User deleted successfully" });
+  res.status(200).json({ message: "user deleted successfully" });
 });
-
 
